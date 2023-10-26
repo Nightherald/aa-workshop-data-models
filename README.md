@@ -45,6 +45,12 @@ To get started with the project, you first need to clone it to your local machin
 git clone https://github.com/<your-username>/<repository-name>.git
 ```
 
+Then you need to create and switch to a new branch. This ensures that the main branch remains clean and deployable at all times:
+
+```bash
+git checkout -b <feature-name>   # for features
+```
+
 Or by using a GUI tool, e.g. VS Code has a built-in Git GUI.
 
 #### pyenv
