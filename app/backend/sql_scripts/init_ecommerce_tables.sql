@@ -8,7 +8,6 @@ CREATE SCHEMA IF NOT EXISTS ecommerce_schema;
 ------------------ Ecommerce Database ------------------
 --####################################################--
 
--- Users table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR NOT NULL,
@@ -18,14 +17,12 @@ CREATE TABLE IF NOT EXISTS ecommerce_schema.users (
     user_type TEXT CHECK (user_type IN ('admin', 'customer'))
 );
 
--- Supplier table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.supplier (
     supplier_id SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL,
     contact_details VARCHAR
 );
 
--- Product table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.product (
     product_id SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL,
@@ -37,8 +34,6 @@ CREATE TABLE IF NOT EXISTS ecommerce_schema.product (
     supplier_id INT REFERENCES ecommerce_schema.supplier(supplier_id)
 );
 
-
--- Orders table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.orders (
     order_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES ecommerce_schema.users(user_id),
@@ -47,7 +42,6 @@ CREATE TABLE IF NOT EXISTS ecommerce_schema.orders (
     status TEXT CHECK (status IN ('pending', 'shipped', 'delivered', 'cancelled'))
 );
 
--- OrderDetails table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.orderdetails (
     order_id INT REFERENCES ecommerce_schema.orders(order_id),
     product_id INT REFERENCES ecommerce_schema.product(product_id),
@@ -55,7 +49,6 @@ CREATE TABLE IF NOT EXISTS ecommerce_schema.orderdetails (
     PRIMARY KEY (order_id, product_id)
 );
 
--- Payment table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.payment (
     payment_id SERIAL PRIMARY KEY,
     order_id INT REFERENCES ecommerce_schema.orders(order_id),
@@ -64,7 +57,6 @@ CREATE TABLE IF NOT EXISTS ecommerce_schema.payment (
     amount FLOAT NOT NULL
 );
 
--- Review table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.review (
     review_id SERIAL PRIMARY KEY,
     product_id INT REFERENCES ecommerce_schema.product(product_id),
@@ -73,14 +65,12 @@ CREATE TABLE IF NOT EXISTS ecommerce_schema.review (
     review_text VARCHAR
 );
 
--- Wishlist table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.wishlist (
     wishlist_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES ecommerce_schema.users(user_id),
     product_id INT REFERENCES ecommerce_schema.product(product_id)
 );
 
--- Shipment table
 CREATE TABLE IF NOT EXISTS ecommerce_schema.shipment (
     shipment_id SERIAL PRIMARY KEY,
     order_id INT REFERENCES ecommerce_schema.orders(order_id),
@@ -104,54 +94,45 @@ DELETE FROM ecommerce_schema.users;
 
 ---------------------------------------------------------------------------------------------------------
 
--- Resetting the sequence of the serial primary keys
-
 -- Reset sequences for tables with SERIAL primary keys
 DO $$ 
 BEGIN
-    -- Resetting for users table
+    
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'users_user_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.users_user_id_seq RESTART WITH 1;
     END IF;
     
-    -- Resetting for supplier table
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'supplier_supplier_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.supplier_supplier_id_seq RESTART WITH 1;
-    END IF;
+    END IF;    
     
-    -- Resetting for product table
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'product_product_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.product_product_id_seq RESTART WITH 1;
     END IF;
-
-    -- Resetting for orders table
+    
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'orders_order_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.orders_order_id_seq RESTART WITH 1;
     END IF;
-
-    -- Resetting for payment table
+    
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'payment_payment_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.payment_payment_id_seq RESTART WITH 1;
     END IF;
-
-    -- Resetting for review table
+    
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'review_review_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.review_review_id_seq RESTART WITH 1;
     END IF;
 
-    -- Resetting for wishlist table
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'wishlist_wishlist_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.wishlist_wishlist_id_seq RESTART WITH 1;
     END IF;
-
-    -- Resetting for shipment table
+    
     IF EXISTS (SELECT 1 FROM information_schema.sequences WHERE sequence_schema = 'ecommerce_schema' AND sequence_name = 'shipment_shipment_id_seq') THEN
         ALTER SEQUENCE ecommerce_schema.shipment_shipment_id_seq RESTART WITH 1;
     END IF;
 
 END $$;
 
--- based on foreign key constraints we need to insert data in the following order
+---------------------------------------------------------------------------------------------------------
 
 -- Inserting data in the order of dependency
 INSERT INTO ecommerce_schema.users (username, password, email, registration_date, user_type) VALUES

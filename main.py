@@ -18,4 +18,9 @@ if __name__ == "__main__":
     
     print("-"*50)
     logging.info("Starting users demo")
-    users.run()
+    users.run() 
+    
+    # the second time it runs, it will fail because the user already exists. 
+    # work around this by either modifying:
+    # 1. the database
+    # 2. the code to create a new user
