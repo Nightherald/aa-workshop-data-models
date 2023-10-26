@@ -12,8 +12,7 @@
 5. [Git Development](#git-development)
 
 ## Context
-_This workshop took place as part of the [TechBiz](https://thinkbiz.gr/projects/techbiz/) event for [ThinkBiz](https://thinkbiz.gr/). The presentation, titled: `Bridging the Gap: Translating Business Needs into Data Models with Python & PostgreSQL`, explored the concepts of Domain Modeling and Database Architecture using industry-standard tools, including Python PostgreSQL, ORM, and GitHub, as we embarked on hands-on exercises that simulated real-world engineering challenges_
-
+_This workshop took place as part of the [TechBiz](https://thinkbiz.gr/projects/techbiz/) event for [ThinkBiz](https://thinkbiz.gr/). The presentation, titled: `Bridging the Gap: Translating Business Needs into Data Models with Python & PostgreSQL`, explored the concepts of Domain Modeling and Database Architecture using industry-standard tools, including Python, PostgreSQL, ORM, and GitHub.  As we embarked on hands-on exercises that simulated real-world engineering challenges, much of the work in this repository has been co-authored and contributed by my colleague, Alexandros Ntelifilippidis ([github](https://github.com/alexntelifilippidis), [linkedin](https://www.linkedin.com/in/alexandros-ntelifilippidis-98356219a/))._
 ## Setup
 ### Prerequisites
 
