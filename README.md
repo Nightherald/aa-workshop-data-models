@@ -11,6 +11,9 @@
 4. [Code Structure](#code-structure)
 5. [Git Development](#git-development)
 
+## Context
+_This workshop took place as part of the [TechBiz](https://thinkbiz.gr/projects/techbiz/) event for [ThinkBiz](https://thinkbiz.gr/). The presentation, titled: `Bridging the Gap: Translating Business Needs into Data Models with Python & PostgreSQL`, explored the concepts of Domain Modeling and Database Architecture using industry-standard tools, including Python PostgreSQL, ORM, and GitHub, as we embarked on hands-on exercises that simulated real-world engineering challenges_
+
 ## Setup
 ### Prerequisites
 
